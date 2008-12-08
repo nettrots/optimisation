@@ -17,13 +17,16 @@ namespace OptimizationFEM
     internal delegate double functional(double E, double Nu, double h);
     internal delegate void Writer(Font font, Color color, string s);
     internal delegate void Work(functional[] limited);
-    
+    internal delegate void Progress();
+    internal delegate void SetProgress(int n);
+    internal delegate void Paint(object sender, PaintEventArgs e);
+
     public partial class Form1 : Form
     {
         #region Fileds
 
         private string points;
-        private double minE, maxE, minNu, maxNu, minH, maxH, rho, stepE, stepNu, stepH;
+        private double minE, maxE, minNu, maxNu, minH, maxH, stepE, stepNu, stepH, currH, currE, currNu;
         private double phi1plus, phi2plus;
         private double rezE = 0, rezNu = 0, rezH = 0;
 
@@ -51,23 +54,64 @@ namespace OptimizationFEM
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
         }
 
+        void progr(int n)
+        {
+            progressBar1.Maximum = n;
+        }
+        void tick1()
+        {
+            progressBar1.Value += 1;
+            textBox1.Text = (Math.Round((float)progressBar1.Value / progressBar1.Maximum*100)).ToString()+"%";
+        }
         private int c = 0;
+        private bool b = true;
         void AddText(Font font, Color color, string text)
         {
             rtb.SelectionFont = font;
             rtb.SelectionColor = color;
             rtb.SelectedText += text;
+            text=text.Replace(',', '.');
+            if (c==-1)return;
+            if (text.Contains("Optimization gives next results")) c = -1;
+
+            if(text.Contains("FALSE")) b = false;
             if (text.Contains("Point"))
             {
+               
                 string[] strs = text.Split(' ');
                 for (int i=0; i < strs.Length;i++ )
                 {
                     if (strs[i].Contains("=")) strs[i] = strs[i].Substring(2, strs[i].Length - 3);
                 }
                 dg.Rows.Add(c++, strs[4], strs[8], strs[12]);
+                b = true;
             }
             else
             {
+
+
+                     string[] s = text.Split(' ','\n');
+                     
+                     if (text.Contains("ψ0"))
+                     {
+                         double d = double.Parse(s[2]);
+                         dg.Rows[c - 1].Cells[4].Value = d;
+                     }
+                    if(text.Contains("ψ1"))
+                    {
+                        double d = double.Parse(s[2]);
+                        dg.Rows[c - 1].Cells[5].Value = d;
+                    }
+                    if (text.Contains("ψ2"))
+                    {
+                        double d = double.Parse(s[2]);
+                        dg.Rows[c - 1].Cells[6].Value = d;
+                    }
+                    if (c > 0)
+                    {
+                        if (b) dg.Rows[c - 1].DefaultCellStyle.BackColor = Color.LightCyan;
+                        else dg.Rows[c - 1].DefaultCellStyle.BackColor = Color.LightPink;
+                    }
                 
             }
            
@@ -276,7 +320,13 @@ namespace OptimizationFEM
         void Process(functional[] limited)
         {
             Writer writer = AddText;
-          
+            Paint paint =panel1_Paint;
+            SetProgress setpr = progr;
+            Progress tick = tick1;
+            int n = (int)(((maxE - minE) / stepE + 1) * ((maxNu - minNu) / stepNu + 1) * ((maxH - minH) / stepH + 1));
+            BeginInvoke(setpr, n);
+
+
             rezE = 0;
             double optiE, optiNu, optiH, optiPhi0, optiPhi1, optiPhi2;
             optiE = optiNu = optiH = optiPhi1 = optiPhi2 = 0;
@@ -286,7 +336,22 @@ namespace OptimizationFEM
                 for(double Nu = minNu; Nu<=maxNu; Nu+=stepNu)
                     for (double h = minH; h<=maxH; h+=stepH)
                     {
+                        if (stop){
+                            stop = !stop;
+                            Progress w1 = setenable;
+                            BeginInvoke(w1);
+                            currE = 0;
+                            currNu = 0;
+                            currH = 0;
+                            panel3.Invalidate();
+                            return;}
+                        BeginInvoke(tick);
+                        currH = h;
+                        currE = E;
+                        currNu = Nu;
+                        panel3.Invalidate();
                         domain = Problem(E, Nu, h);
+                        
                         this.BeginInvoke(writer, fonts[0], colors[0], string.Format("Point:    Ε={0},    ν={1},    h={2}\n", E, Nu, h));
                         double currentphi0 = phi0(E, Nu, h);
                         this.BeginInvoke(writer, fonts[1], colors[1], string.Format("ψ0 = {0}\n", currentphi0));
@@ -314,12 +379,15 @@ namespace OptimizationFEM
                         optiH = h;
                         optiPhi0 = currentphi0;
                         if (currentlimited.Length >= 1) optiPhi1 = currentlimited[0];
-                        if (currentlimited.Length >= 2) optiPhi2 = currentlimited[1]; 
+                        if (currentlimited.Length >= 2) optiPhi2 = currentlimited[1];
+
                     }
             if (optiE==0)
             {
                 this.BeginInvoke(writer, fonts[0], colors[0], "Optimization is failed!!! :(");
-                MessageBox.Show("Done!!!", "Optimization");
+               // MessageBox.Show("Done!!!", "Optimization");
+                Progress w1 = setenable;
+                BeginInvoke(w1);
                 return;
             }
             this.BeginInvoke(writer, fonts[0], colors[0], "Optimization gives next results:\n");
@@ -333,16 +401,35 @@ namespace OptimizationFEM
             rezE = optiE;
             rezNu = optiNu;
             rezH = optiH;
+            currE = optiE;
+            currNu = optiNu;
+            currH = optiH;
             panel3.Invalidate();
-            MessageBox.Show("Done!!!", "Optimization");
+            Progress w2 = setenable;
+            BeginInvoke(w2);
+           // MessageBox.Show("Done!!!", "Optimization");
         }
         #endregion
 
+        void setenable()
+        {
+            button1.Enabled = true;
+        }
+
+        
+        IAsyncResult iares;
         private void button1_Click(object sender, EventArgs e)
         {
-            Work work = Process;
+            dg.Rows.Clear();
+            progressBar1.Value = 0;
+            c = 0;
+            
             try
             {
+                stop = false;
+                button1.Enabled = false;
+                button2.Enabled = true;
+                Work work = Process;
                 rtb.Text = "";
                 Preprocess();
                 int count = 0;
@@ -352,6 +439,7 @@ namespace OptimizationFEM
                 count = 0;
                 if (phi1 != null) limited[count++] = phi1;
                 if (phi2 != null) limited[count++] = phi2;
+                
                 work.BeginInvoke(limited, null, null);
             }
             catch(Exception ex)
@@ -362,7 +450,9 @@ namespace OptimizationFEM
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            double h = rezH;
+            
+            
+            double h = currH;
             string s =
                         string.Format(
                             "0.75 -0.5 -0.75 -0.5 -0.75 {0} -1 {1} -1 {2} -0.75 {3} -0.75 0.5 0.75 0.5 0.75 {4} 1 {5} 1 {6} 0.75 {7}",
@@ -397,23 +487,32 @@ namespace OptimizationFEM
             g.DrawString("p = (0,-1)", this.Font, Brushes.Red, 120, 10);
             if (rezE==0)
             {
-                g.DrawString("Ε", this.Font, Brushes.Blue, 160, 65);
-                g.DrawString("ν", this.Font, Brushes.Blue, 160, 85);
+                g.DrawString(string.Format("Ε = {0}", currE), this.Font, Brushes.DarkBlue, 90, 125);
+                g.DrawString(string.Format("ν = {0}", currNu), this.Font, Brushes.DarkBlue, 90, 135);
 
-                pen.StartCap = LineCap.ArrowAnchor;
-                pen.Color = Color.Blue;
-                g.DrawLine(pen, 280, 40, 280, 140);
-                g.DrawString("h", this.Font, Brushes.Blue, 290, 80);
+                //pen.StartCap = LineCap.ArrowAnchor;
+                //pen.Color = Color.Blue;
+                //g.DrawLine(pen, 280, 40, 280, 140);
+                g.DrawString(string.Format("h = {0}", currH), this.Font, Brushes.DarkCyan, 230, (int)(110 - ((-0.5 + h)) * 100));
+
+                //g.DrawString("Ε", this.Font, Brushes.Blue, 160, 65);
+                //g.DrawString("ν", this.Font, Brushes.Blue, 160, 85);
+
+                //pen.StartCap = LineCap.ArrowAnchor;
+                //pen.Color = Color.Blue;
+                //g.DrawLine(pen, 280, 40, 280, 140);
+                //g.DrawString("h", this.Font, Brushes.Blue, 290, 80);
             }
             else
-            {
-                g.DrawString(string.Format("Ε = {0}", rezE), this.Font, Brushes.Blue, 160, 65);
-                g.DrawString(string.Format("ν = {0}", rezNu), this.Font, Brushes.Blue, 160, 85);
+            { 
+                
+                g.DrawString(string.Format("Ε = {0}", rezE), this.Font, Brushes.DarkMagenta, 90, 125);
+                g.DrawString(string.Format("ν = {0}", rezNu), this.Font, Brushes.DarkMagenta, 90, 135);
 
-                pen.StartCap = LineCap.ArrowAnchor;
-                pen.Color = Color.Blue;
-                g.DrawLine(pen, 280, 40, 280, 140);
-                g.DrawString(string.Format("h = {0}", rezH), this.Font, Brushes.Blue, 290, 80);
+                //pen.StartCap = LineCap.ArrowAnchor;
+                //pen.Color = Color.Blue;
+                //g.DrawLine(pen, 280, 40, 280, 140);
+                g.DrawString(string.Format("h = {0}", rezH), this.Font, Brushes.DarkRed, 230, (int)(110 - ((-0.5 + h)) * 100));
             }
         }
 
@@ -435,18 +534,21 @@ namespace OptimizationFEM
                 checkBoxPhi0.Checked = false;
                 checkBoxPhi0.Enabled = false;
                 textBoxPhi0.Enabled = false;
+                checkBoxPhi0.Text = "актив.";
             }
             if (rb == radioButtonPhi1)
             {
                 checkBoxPhi1.Checked = false;
                 checkBoxPhi1.Enabled = false;
                 textBoxPhi1.Enabled = false;
+                checkBoxPhi1.Text = "актив.";
             }
             if (rb == radioButtonPhi2)
             {
                 checkBoxPhi2.Checked = false;
                 checkBoxPhi2.Enabled = false;
                 textBoxPhi2.Enabled = false;
+                checkBoxPhi2.Text = "актив.";
             }
             rtb.Text = "";
             rezE = 0;
@@ -461,6 +563,9 @@ namespace OptimizationFEM
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
             rtb.Text = "";
+            CheckBox cb = (CheckBox) sender;
+            if (cb.Checked) cb.Text = "ТАК";
+            else cb.Text = "НІ";
             rezE = 0;
             panel3.Invalidate();
         }
@@ -473,6 +578,17 @@ namespace OptimizationFEM
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private bool stop = false;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            stop = true;
+        }
+
+        private void dg_Click(object sender, EventArgs e)
+        {
+            //if (dg.SelectedRows != null) MessageBox.Show(dg.SelectedRows[0].Cells[0].Value.ToString());
         }
     }
 }
