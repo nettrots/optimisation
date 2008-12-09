@@ -254,8 +254,11 @@ namespace OptimizationFEM
             stepE = stepH = stepNu = 1;
 
             if (!checkBoxE.Checked && !checkBoxNu.Checked && !checkBoxH.Checked)
+            {
+                button1.Enabled = true;
                 throw new Exception("Please, choose at least one parameter!!!");
-            
+            }
+
             if (checkBoxE.Checked)
             {
                 minE = double.Parse(textBoxEmin.Text);
@@ -333,7 +336,7 @@ namespace OptimizationFEM
             double[] phiplus = new double[] {phi1plus, phi2plus};
             for (double E = minE; E<=maxE; E+=stepE)
                 for(double Nu = minNu; Nu<=maxNu; Nu+=stepNu)
-                    for (double h = minH; h<=maxH; h+=stepH)
+                    for (float h = (float)minH; h <= maxH; h += (float)stepH)
                     {
                         if (stop){
                             stop = !stop;
