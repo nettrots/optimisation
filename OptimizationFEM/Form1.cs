@@ -67,9 +67,9 @@ namespace OptimizationFEM
         private bool b = true;
         void AddText(Font font, Color color, string text)
         {
-            rtb.SelectionFont = font;
-            rtb.SelectionColor = color;
-            rtb.SelectedText += text;
+            //rtb.SelectionFont = font;
+            //rtb.SelectionColor = color;
+            //rtb.SelectedText += text;
             text=text.Replace(',', '.');
             if (c==-1)return;
             if (text.Contains("Optimization gives next results")) c = -1;
@@ -117,10 +117,12 @@ namespace OptimizationFEM
         #region Help functions
         Domain Problem(double E, double Nu, double h)
         {
+            
+            
             StreamWriter sw = new StreamWriter("temp.txt");
             string s;
             bool t1 = h > 0;
-            bool t2 = h < 0.9;
+            bool t2 =h-0.9<-0.00001;
             if (t1)
             {
                 if (t2)
@@ -139,7 +141,7 @@ namespace OptimizationFEM
                     sw.WriteLine("Static 0 0");//!
                     sw.WriteLine("Kinematic");//!
                     sw.WriteLine("Kinematic");
-                    sw.WriteLine("Static 0 -100");
+                    sw.WriteLine("Static 0 -10");
                     sw.WriteLine("Kinematic");
                     sw.WriteLine("Kinematic");//!
                     sw.WriteLine("Static 0 0");//!
@@ -161,7 +163,7 @@ namespace OptimizationFEM
                     sw.WriteLine("Kinematic");
                     sw.WriteLine("Static 0 0");//!
                     sw.WriteLine("Kinematic");//!
-                    sw.WriteLine("Static 0 -100");
+                    sw.WriteLine("Static 0 -10");
                     sw.WriteLine("Kinematic");//!
                     sw.WriteLine("Static 0 0");//!
                     sw.WriteLine("Kinematic");
@@ -186,7 +188,7 @@ namespace OptimizationFEM
                 sw.WriteLine("Static 0 0");//!
                 sw.WriteLine("Kinematic");//!
                 sw.WriteLine("Kinematic");
-                sw.WriteLine("Static 0 -100");
+                sw.WriteLine("Static 0 -10");
                 sw.WriteLine("Kinematic");
                 sw.WriteLine("Kinematic");//!
                 sw.WriteLine("Static 0 0");//!
@@ -198,7 +200,7 @@ namespace OptimizationFEM
             }
             
             sw.WriteLine("{0} {1}", E, Nu);
-            sw.WriteLine("LinearTriangle {0} 20", 0.1/4);
+            sw.WriteLine("LinearTriangle {0} 20", 0.1/200);
             sw.WriteLine(0);
             sw.Close();
             Domain domain = new Domain("temp.txt");
