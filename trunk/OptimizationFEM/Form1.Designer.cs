@@ -80,7 +80,7 @@
             // 
             // textBoxPhi2
             // 
-            this.textBoxPhi2.Location = new System.Drawing.Point(197, 97);
+            this.textBoxPhi2.Location = new System.Drawing.Point(197, 70);
             this.textBoxPhi2.Name = "textBoxPhi2";
             this.textBoxPhi2.Size = new System.Drawing.Size(91, 20);
             this.textBoxPhi2.TabIndex = 8;
@@ -92,7 +92,7 @@
             this.checkBoxPhi2.Checked = true;
             this.checkBoxPhi2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxPhi2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxPhi2.Location = new System.Drawing.Point(133, 97);
+            this.checkBoxPhi2.Location = new System.Drawing.Point(133, 70);
             this.checkBoxPhi2.Name = "checkBoxPhi2";
             this.checkBoxPhi2.Size = new System.Drawing.Size(47, 17);
             this.checkBoxPhi2.TabIndex = 6;
@@ -102,7 +102,7 @@
             // 
             // textBoxPhi1
             // 
-            this.textBoxPhi1.Location = new System.Drawing.Point(197, 59);
+            this.textBoxPhi1.Location = new System.Drawing.Point(197, 41);
             this.textBoxPhi1.Name = "textBoxPhi1";
             this.textBoxPhi1.Size = new System.Drawing.Size(91, 20);
             this.textBoxPhi1.TabIndex = 5;
@@ -114,7 +114,7 @@
             this.checkBoxPhi1.Checked = true;
             this.checkBoxPhi1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxPhi1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxPhi1.Location = new System.Drawing.Point(133, 59);
+            this.checkBoxPhi1.Location = new System.Drawing.Point(133, 41);
             this.checkBoxPhi1.Name = "checkBoxPhi1";
             this.checkBoxPhi1.Size = new System.Drawing.Size(47, 17);
             this.checkBoxPhi1.TabIndex = 3;
@@ -125,7 +125,7 @@
             // textBoxPhi0
             // 
             this.textBoxPhi0.Enabled = false;
-            this.textBoxPhi0.Location = new System.Drawing.Point(197, 18);
+            this.textBoxPhi0.Location = new System.Drawing.Point(197, 15);
             this.textBoxPhi0.Name = "textBoxPhi0";
             this.textBoxPhi0.Size = new System.Drawing.Size(82, 20);
             this.textBoxPhi0.TabIndex = 2;
@@ -136,7 +136,7 @@
             this.checkBoxPhi0.AutoSize = true;
             this.checkBoxPhi0.Enabled = false;
             this.checkBoxPhi0.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.checkBoxPhi0.Location = new System.Drawing.Point(133, 18);
+            this.checkBoxPhi0.Location = new System.Drawing.Point(133, 15);
             this.checkBoxPhi0.Name = "checkBoxPhi0";
             this.checkBoxPhi0.Size = new System.Drawing.Size(58, 17);
             this.checkBoxPhi0.TabIndex = 0;
@@ -149,7 +149,7 @@
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
             this.groupBox2.Location = new System.Drawing.Point(330, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(330, 151);
+            this.groupBox2.Size = new System.Drawing.Size(330, 116);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Main functional";
@@ -178,9 +178,9 @@
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.41176F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(324, 132);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(324, 97);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // label2
@@ -188,7 +188,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(133, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(49, 12);
             this.label2.TabIndex = 32;
             this.label2.Text = "Активне";
             // 
@@ -197,19 +197,19 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(197, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(67, 12);
             this.label1.TabIndex = 33;
             this.label1.Text = "Обмеження";
             // 
             // radioButtonPhi2
             // 
             this.radioButtonPhi2.AutoSize = true;
-            this.radioButtonPhi2.Image = global::OptimizationFEM.Resource1.phi2;
             this.radioButtonPhi2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radioButtonPhi2.Location = new System.Drawing.Point(3, 97);
+            this.radioButtonPhi2.Location = new System.Drawing.Point(3, 70);
             this.radioButtonPhi2.Name = "radioButtonPhi2";
-            this.radioButtonPhi2.Size = new System.Drawing.Size(101, 24);
+            this.radioButtonPhi2.Size = new System.Drawing.Size(39, 17);
             this.radioButtonPhi2.TabIndex = 2;
+            this.radioButtonPhi2.Text = "ψ0";
             this.radioButtonPhi2.UseVisualStyleBackColor = true;
             this.radioButtonPhi2.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -217,25 +217,25 @@
             // 
             this.radioButtonPhi0.AutoSize = true;
             this.radioButtonPhi0.Checked = true;
-            this.radioButtonPhi0.Image = global::OptimizationFEM.Resource1.phi0;
             this.radioButtonPhi0.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.radioButtonPhi0.Location = new System.Drawing.Point(3, 18);
+            this.radioButtonPhi0.Location = new System.Drawing.Point(3, 15);
             this.radioButtonPhi0.Name = "radioButtonPhi0";
-            this.radioButtonPhi0.Size = new System.Drawing.Size(88, 35);
+            this.radioButtonPhi0.Size = new System.Drawing.Size(39, 17);
             this.radioButtonPhi0.TabIndex = 0;
             this.radioButtonPhi0.TabStop = true;
+            this.radioButtonPhi0.Text = "ψ0";
             this.radioButtonPhi0.UseVisualStyleBackColor = true;
             this.radioButtonPhi0.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // radioButtonPhi1
             // 
             this.radioButtonPhi1.AutoSize = true;
-            this.radioButtonPhi1.Image = global::OptimizationFEM.Resource1.phi1;
             this.radioButtonPhi1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radioButtonPhi1.Location = new System.Drawing.Point(3, 59);
+            this.radioButtonPhi1.Location = new System.Drawing.Point(3, 41);
             this.radioButtonPhi1.Name = "radioButtonPhi1";
-            this.radioButtonPhi1.Size = new System.Drawing.Size(89, 24);
+            this.radioButtonPhi1.Size = new System.Drawing.Size(39, 17);
             this.radioButtonPhi1.TabIndex = 1;
+            this.radioButtonPhi1.Text = "ψ1";
             this.radioButtonPhi1.UseVisualStyleBackColor = true;
             this.radioButtonPhi1.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -244,13 +244,13 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(77, 13);
+            this.label8.Size = new System.Drawing.Size(123, 12);
             this.label8.TabIndex = 23;
-            this.label8.Text = "Функція мети";
+            this.label8.Text = "Функціонал керування";
             // 
             // textBoxHstep
             // 
-            this.textBoxHstep.Location = new System.Drawing.Point(83, 84);
+            this.textBoxHstep.Location = new System.Drawing.Point(82, 97);
             this.textBoxHstep.Name = "textBoxHstep";
             this.textBoxHstep.Size = new System.Drawing.Size(62, 20);
             this.textBoxHstep.TabIndex = 17;
@@ -258,7 +258,7 @@
             // 
             // textBoxHmax
             // 
-            this.textBoxHmax.Location = new System.Drawing.Point(83, 58);
+            this.textBoxHmax.Location = new System.Drawing.Point(82, 71);
             this.textBoxHmax.Name = "textBoxHmax";
             this.textBoxHmax.Size = new System.Drawing.Size(62, 20);
             this.textBoxHmax.TabIndex = 15;
@@ -266,7 +266,7 @@
             // 
             // textBoxHmin
             // 
-            this.textBoxHmin.Location = new System.Drawing.Point(82, 32);
+            this.textBoxHmin.Location = new System.Drawing.Point(82, 39);
             this.textBoxHmin.Name = "textBoxHmin";
             this.textBoxHmin.Size = new System.Drawing.Size(62, 20);
             this.textBoxHmin.TabIndex = 14;
@@ -279,14 +279,14 @@
             this.checkBoxH.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxH.Location = new System.Drawing.Point(88, 16);
             this.checkBoxH.Name = "checkBoxH";
-            this.checkBoxH.Size = new System.Drawing.Size(35, 17);
+            this.checkBoxH.Size = new System.Drawing.Size(37, 17);
             this.checkBoxH.TabIndex = 13;
-            this.checkBoxH.Text = "L:";
+            this.checkBoxH.Text = "Н:";
             this.checkBoxH.UseVisualStyleBackColor = true;
             // 
             // textBoxNumax
             // 
-            this.textBoxNumax.Location = new System.Drawing.Point(237, 58);
+            this.textBoxNumax.Location = new System.Drawing.Point(236, 71);
             this.textBoxNumax.Name = "textBoxNumax";
             this.textBoxNumax.Size = new System.Drawing.Size(62, 20);
             this.textBoxNumax.TabIndex = 10;
@@ -294,7 +294,7 @@
             // 
             // textBoxNumin
             // 
-            this.textBoxNumin.Location = new System.Drawing.Point(242, 32);
+            this.textBoxNumin.Location = new System.Drawing.Point(237, 39);
             this.textBoxNumin.Name = "textBoxNumin";
             this.textBoxNumin.Size = new System.Drawing.Size(62, 20);
             this.textBoxNumin.TabIndex = 9;
@@ -314,7 +314,7 @@
             // 
             // textBoxEstep
             // 
-            this.textBoxEstep.Location = new System.Drawing.Point(163, 84);
+            this.textBoxEstep.Location = new System.Drawing.Point(162, 97);
             this.textBoxEstep.Name = "textBoxEstep";
             this.textBoxEstep.Size = new System.Drawing.Size(62, 20);
             this.textBoxEstep.TabIndex = 7;
@@ -322,7 +322,7 @@
             // 
             // textBoxEmax
             // 
-            this.textBoxEmax.Location = new System.Drawing.Point(163, 58);
+            this.textBoxEmax.Location = new System.Drawing.Point(162, 71);
             this.textBoxEmax.Name = "textBoxEmax";
             this.textBoxEmax.Size = new System.Drawing.Size(62, 20);
             this.textBoxEmax.TabIndex = 5;
@@ -330,7 +330,7 @@
             // 
             // textBoxEmin
             // 
-            this.textBoxEmin.Location = new System.Drawing.Point(163, 32);
+            this.textBoxEmin.Location = new System.Drawing.Point(163, 39);
             this.textBoxEmin.Name = "textBoxEmin";
             this.textBoxEmin.Size = new System.Drawing.Size(62, 20);
             this.textBoxEmin.TabIndex = 1;
@@ -379,7 +379,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(39, 87);
+            this.label10.Location = new System.Drawing.Point(38, 100);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 13);
             this.label10.TabIndex = 20;
@@ -388,7 +388,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1, 61);
+            this.label11.Location = new System.Drawing.Point(0, 74);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(78, 13);
             this.label11.TabIndex = 19;
@@ -397,7 +397,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(12, 35);
+            this.label12.Location = new System.Drawing.Point(12, 42);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(64, 13);
             this.label12.TabIndex = 18;
@@ -420,16 +420,16 @@
             this.groupBox4.Controls.Add(this.textBoxEmax);
             this.groupBox4.Controls.Add(this.textBoxEmin);
             this.groupBox4.Controls.Add(this.checkBoxE);
-            this.groupBox4.Location = new System.Drawing.Point(330, 169);
+            this.groupBox4.Location = new System.Drawing.Point(330, 144);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(327, 111);
+            this.groupBox4.Size = new System.Drawing.Size(327, 136);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox1";
+            this.groupBox4.Text = "Функція мети";
             // 
             // textBoxNustep
             // 
-            this.textBoxNustep.Location = new System.Drawing.Point(237, 84);
+            this.textBoxNustep.Location = new System.Drawing.Point(236, 97);
             this.textBoxNustep.Name = "textBoxNustep";
             this.textBoxNustep.Size = new System.Drawing.Size(62, 20);
             this.textBoxNustep.TabIndex = 12;
@@ -450,12 +450,12 @@
             this.Column5,
             this.Column6,
             this.Column7});
-            this.dg.Location = new System.Drawing.Point(12, 323);
+            this.dg.Location = new System.Drawing.Point(12, 315);
             this.dg.Name = "dg";
             this.dg.ReadOnly = true;
             this.dg.RowHeadersVisible = false;
             this.dg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dg.Size = new System.Drawing.Size(643, 218);
+            this.dg.Size = new System.Drawing.Size(643, 226);
             this.dg.TabIndex = 22;
             this.dg.Click += new System.EventHandler(this.dg_Click);
             // 
@@ -557,7 +557,7 @@
             this.Controls.Add(this.rtb);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Optimization";
+            this.Text = "Оптимізація форми";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
