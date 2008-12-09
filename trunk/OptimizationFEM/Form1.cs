@@ -88,8 +88,6 @@ namespace OptimizationFEM
             }
             else
             {
-
-
                      string[] s = text.Split(' ','\n');
                      
                      if (text.Contains("ψ0"))
@@ -112,7 +110,6 @@ namespace OptimizationFEM
                         if (b) dg.Rows[c - 1].DefaultCellStyle.BackColor = Color.LightCyan;
                         else dg.Rows[c - 1].DefaultCellStyle.BackColor = Color.LightPink;
                     }
-                
             }
            
         }
@@ -142,7 +139,7 @@ namespace OptimizationFEM
                     sw.WriteLine("Static 0 0");//!
                     sw.WriteLine("Kinematic");//!
                     sw.WriteLine("Kinematic");
-                    sw.WriteLine("Static 0 -1");
+                    sw.WriteLine("Static 0 -100");
                     sw.WriteLine("Kinematic");
                     sw.WriteLine("Kinematic");//!
                     sw.WriteLine("Static 0 0");//!
@@ -164,7 +161,7 @@ namespace OptimizationFEM
                     sw.WriteLine("Kinematic");
                     sw.WriteLine("Static 0 0");//!
                     sw.WriteLine("Kinematic");//!
-                    sw.WriteLine("Static 0 -1");
+                    sw.WriteLine("Static 0 -100");
                     sw.WriteLine("Kinematic");//!
                     sw.WriteLine("Static 0 0");//!
                     sw.WriteLine("Kinematic");
