@@ -118,11 +118,10 @@ namespace OptimizationFEM
         Domain Problem(double E, double Nu, double h)
         {
             
-            
             StreamWriter sw = new StreamWriter("temp.txt");
             string s;
-            bool t1 = h > 0;
-            bool t2 =h-0.9<-0.00001;
+            bool t1 = h > 0.01111111111;
+            bool t2 =h<0.889;
             if (t1)
             {
                 if (t2)
@@ -336,8 +335,11 @@ namespace OptimizationFEM
             double[] phiplus = new double[] {phi1plus, phi2plus};
             for (double E = minE; E<=maxE; E+=stepE)
                 for(double Nu = minNu; Nu<=maxNu; Nu+=stepNu)
-                    for (float h = (float)minH; h <= maxH; h += (float)stepH)
+                    for (double h = minH; h <= maxH; h += stepH)
                     {
+                        decimal h1 = Convert.ToDecimal(h);
+                        h1 = Math.Round(h1, 5);
+                        h = Convert.ToDouble(h1);
                         if (stop){
                             stop = !stop;
                             Progress w1 = setenable;
@@ -409,6 +411,13 @@ namespace OptimizationFEM
             panel3.Invalidate();
             Progress w2 = setenable;
             BeginInvoke(w2);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            foreach (DataGridViewRow row in dg.Rows)
+            {
+                if (double.Parse((string)row.Cells[1].Value) == optiE && double.Parse((string)row.Cells[2].Value) == optiNu && double.Parse((string)row.Cells[3].Value) == optiH)
+                    row.DefaultCellStyle.BackColor = Color.MediumTurquoise;
+            }
+            
            // MessageBox.Show("Done!!!", "Optimization");
         }
         #endregion
@@ -591,6 +600,16 @@ namespace OptimizationFEM
         private void dg_Click(object sender, EventArgs e)
         {
             //if (dg.SelectedRows != null) MessageBox.Show(dg.SelectedRows[0].Cells[0].Value.ToString());
+            double t1 = currE;
+            double t2 = rezNu;
+            double t3 = rezH;
+            rezE=currE = double.Parse((string)dg.SelectedRows[0].Cells[1].Value);
+            rezNu=currNu = double.Parse((string)dg.SelectedRows[0].Cells[2].Value);
+            rezH=currH = double.Parse((string)dg.SelectedRows[0].Cells[3].Value);
+            
+            panel3.Invalidate();
+
+
         }
     }
 }
